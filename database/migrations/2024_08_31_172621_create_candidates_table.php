@@ -14,10 +14,15 @@ return new class extends Migration
         Schema::create('candidates', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->text('resume')->nullable();
-            $table->string('linkedin_profile')->nullable();
+            $table->string('linkedin_profile')->nullable(); 
+            $table->string('photo')->nullable(); 
+            $table->json('skills')->nullable(); 
+            $table->string('phone')->nullable(); 
+            $table->string('location')->nullable(); 
+            $table->text('bio')->nullable(); 
             $table->timestamps();
         });
+        
     }
 
     /**

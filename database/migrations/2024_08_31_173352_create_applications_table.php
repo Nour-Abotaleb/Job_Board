@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('job_listing_id')->constrained('job_listings')->onDelete('cascade');
             $table->text('cover_letter')->nullable();
             $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
+            $table->text('resume')->nullable(); 
             $table->timestamps();
         });
     }

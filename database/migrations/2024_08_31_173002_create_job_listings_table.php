@@ -11,19 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('job_listings', function (Blueprint $table) {
+        Schema::create('jobs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('employer_id')->constrained('employers')->onDelete('cascade');
             $table->string('title');
             $table->text('description');
-            $table->string('location');
-            $table->enum('work_type', ['remote', 'onsite', 'hybrid']);
-            $table->date('application_deadline');
+            $table->json('requirements'); 
+            $table->string('category'); 
+            $table->string('location'); 
+            $table->enum('work_type', ['remote', 'on-site', 'hybrid']);
+            $table->json('technologies')->nullable(); 
             $table->decimal('salary_range_min', 10, 2)->nullable();
             $table->decimal('salary_range_max', 10, 2)->nullable();
+            $table->date('application_deadline');
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->timestamps();
         });
+        
     }
 
     /**
