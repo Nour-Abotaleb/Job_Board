@@ -11,16 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('jobs', function (Blueprint $table) {
+        Schema::create('job_listings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('employer_id')->constrained('employers')->onDelete('cascade');
             $table->string('title');
             $table->text('description');
             $table->json('requirements'); 
+            $table->json('required_skills'); 
             $table->string('category'); 
             $table->string('location'); 
             $table->enum('work_type', ['remote', 'on-site', 'hybrid']);
-            $table->json('technologies')->nullable(); 
+            $table->text('technologies')->nullable(); 
             $table->decimal('salary_range_min', 10, 2)->nullable();
             $table->decimal('salary_range_max', 10, 2)->nullable();
             $table->date('application_deadline');
