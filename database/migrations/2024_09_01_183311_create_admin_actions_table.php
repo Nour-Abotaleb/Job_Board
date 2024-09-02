@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('admin_actions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('admin_id')->constrained('users')->onDelete('cascade'); 
-            $table->foreignId('job_id')->constrained('jobs')->onDelete('cascade');
+            $table->foreignId('job_id')->constrained('job_listings')->onDelete('cascade');
             $table->string('action'); 
             $table->timestamps();
         });

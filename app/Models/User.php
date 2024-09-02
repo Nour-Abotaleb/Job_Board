@@ -11,6 +11,18 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+
+    protected static function booted()
+    {
+        static::created(function ($user) {
+            if ($user->role === 'candidate') {
+                Candidate::create([
+                    'user_id' => $user->id,
+                    // You can set default values or leave them null
+                ]);
+            }
+        });
+    }
     /**
      * The attributes that are mass assignable.
      *

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Candidate;
 
 class CandidateController extends Controller
 {
@@ -11,8 +12,8 @@ class CandidateController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $candidate = auth()->user();
+        return view('profile.show', compact('candidate'));    }
 
     /**
      * Show the form for creating a new resource.
@@ -49,9 +50,19 @@ class CandidateController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:candidates,email,' . auth()->id(),
+            'skills' => 'nullable|string',
+            // Add other validation rules as necessary
+        ]);
+
+        $candidate = auth()->user();
+        $candidate->update($request->all());
+
+        return back()->with('success', 'Profile updated successfully.');
     }
 
     /**
